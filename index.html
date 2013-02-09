@@ -28,11 +28,6 @@
     $('#mc-form').leapcha({
       shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
     });
-
-    Leap.loop(function(frame){
-        //console.log(frame.dump());
-        $("#frame-dump").html(frame.dump());
-    });
   });
 
 </script>

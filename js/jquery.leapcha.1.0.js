@@ -78,9 +78,12 @@ jQuery.fn.leapcha || (function($) {
 
 			// Create the Harmony Ribbon brush:
 			brush = new Ribbon(ctx);
-			
 
-
+      // -- TODO: start implementing the start/stop stuff with Leap here:
+//      Leap.loop(function(frame){
+//        //console.log(frame.dump());
+//        $("#frame-dump").html(frame.dump());
+//      });
 
 			// Mousedown event
 			// Start Harmony brushstroke and begin recording DR points:
