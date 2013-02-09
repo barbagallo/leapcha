@@ -92,7 +92,7 @@ jQuery.fn.leapcha || (function($) {
 
           _currentFingerID = frame.pointables[0].id;
 
-          console.log('count: ' + _currentFingerCount + ' currentID: ' + _currentFingerID);
+          //console.log('count: ' + _currentFingerCount + ' currentID: ' + _currentFingerID);
           //console.log(frame.pointables[0])
           //console.log(frame.pointables);
 
@@ -105,7 +105,7 @@ jQuery.fn.leapcha || (function($) {
 
             _currentFingerCount = 1;
           }
-          console.log(pointableData);
+
           touchMoveEvent(pointableData);
 
         } else if (frame.pointables.length == 0) { // -- reset drawing
@@ -129,8 +129,8 @@ jQuery.fn.leapcha || (function($) {
 //					x = pos[0],
 //					y = pos[1];
 
-        var x = pointableData.x,
-           y = pointableData.y;
+        var x = Math.round((pointableData.x+100)/2),
+           y = Math.round(-((pointableData.y-200)));
 				
 				// Internal drawing var	
 				_isDown = true;
@@ -172,8 +172,10 @@ jQuery.fn.leapcha || (function($) {
 //						x = pos[0],
 //						y = pos[1];
 
-          var x = pointableData.x,
-             y = pointableData.y;
+          var x = Math.round((pointableData.x+100)/2),
+             y = Math.round(-((pointableData.y-200)));
+
+          console.log(x, y);
 					
 					// Append point to points array:
 					_points[_points.length] = NewPoint(x, y);
