@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leapcha jQuery Plugin</title>
+    <link rel="stylesheet" href="/css/leapcha.css"/>
+
+</head>
+<body>
+
+<!-- The form that MC will act on: -->
+<form action="#" method="post" id="mc-form">
+    <canvas id="mc-canvas">
+        Your browser doesn't support the canvas element - please visit in a modern browser.
+    </canvas>
+</form>
+
+<div id="frame-dump"></div>
+
+</body>
+
+<script src="/js/leap.js"></script>
+<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/jquery.leapcha.1.0.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+    $('#mc-form').leapcha({
+      shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
+    });
+
+    Leap.loop(function(frame){
+        //console.log(frame.dump());
+        $("#frame-dump").html(frame.dump());
+    });
+  });
+
+</script>
+
+</html>
