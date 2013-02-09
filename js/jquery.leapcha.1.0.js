@@ -48,7 +48,11 @@ jQuery.fn.leapcha || (function($) {
 			var canvasWidth = $canvas.width(),
 				canvasHeight = $canvas.height(),
 				borderLeftWidth = 1 * $canvas.css('borderLeftWidth').replace('px', ''),
-				borderTopWidth = 1 * $canvas.css('borderTopWidth').replace('px', '');			
+				borderTopWidth = 1 * $canvas.css('borderTopWidth').replace('px', '');
+
+      // Set up vars for controlling the Leap Motion recording:
+      var _currentFingerCount = 0,
+         _currentFingerID = null;
 
 			// Canvas setup:
 			
@@ -79,25 +83,54 @@ jQuery.fn.leapcha || (function($) {
 			// Create the Harmony Ribbon brush:
 			brush = new Ribbon(ctx);
 
-      // -- TODO: start implementing the start/stop stuff with Leap here:n
-//      Leap.loop(function(frame){
-//        //console.log(frame.dump());
-//        $("#frame-dump").html(frame.dump());
-//      });
+      Leap.loop(function(frame){
+        //console.log(frame.pointables);
+        //$("#frame-dump").html(frame);
+
+        if(frame.pointables.length > 0){ // -- starting a drawing
+          var pointableData = {};
+
+          _currentFingerID = frame.pointables[0].id;
+
+          console.log('count: ' + _currentFingerCount + ' currentID: ' + _currentFingerID);
+          //console.log(frame.pointables[0])
+          //console.log(frame.pointables);
+
+          // -- set up X + Y coordinates in an object to pass:
+          pointableData.x = frame.pointables[0].tipPosition[0];
+          pointableData.y = frame.pointables[0].tipPosition[1];
+
+          if(_currentFingerCount == 0){
+            touchStartEvent(pointableData);
+
+            _currentFingerCount = 1;
+          }
+          console.log(pointableData);
+          touchMoveEvent(pointableData);
+
+        } else if (frame.pointables.length == 0) { // -- reset drawing
+          touchEndEvent(null);
+          _currentFingerCount = 0;
+          _currentFingerID = null;
+        }
+      });
 
 			// Mousedown event
 			// Start Harmony brushstroke and begin recording DR points:
-			var touchStartEvent = function(event) {
+			var touchStartEvent = function(pointableData) {
 				if ( locked )
 					return false;
 				
 				// Prevent default action:
-				event.preventDefault();
+				//event.preventDefault();
 				
 				// Get mouse position inside the canvas:
-				var pos = getPos(event),
-					x = pos[0],
-					y = pos[1];
+//				var pos = getPos(event),
+//					x = pos[0],
+//					y = pos[1];
+
+        var x = pointableData.x,
+           y = pointableData.y;
 				
 				// Internal drawing var	
 				_isDown = true;
@@ -124,7 +157,7 @@ jQuery.fn.leapcha || (function($) {
 			}; // mousedown/touchstart event
 
 			// Mousemove event:
-			var touchMoveEvent = function(event) {
+			var touchMoveEvent = function(pointableData) {
 				if ( _holdStill ) {
 					return _holdStill = 0;
 				}
@@ -132,12 +165,15 @@ jQuery.fn.leapcha || (function($) {
 				if ( !locked && _isDown ) {
 									
 					// Prevent default action:
-					event.preventDefault();
+					//event.preventDefault();
 
 					// Get mouse position inside the canvas:
-					var pos = getPos(event),
-						x = pos[0],
-						y = pos[1];
+//					var pos = getPos(event),
+//						x = pos[0],
+//						y = pos[1];
+
+          var x = pointableData.x,
+             y = pointableData.y;
 					
 					// Append point to points array:
 					_points[_points.length] = NewPoint(x, y);
@@ -208,21 +244,21 @@ jQuery.fn.leapcha || (function($) {
 			}; // mouseup/touchend event
 
 			// Bind events to canvas:
-			$canvas.bind({
-				mousedown:  touchStartEvent,
-				mousemove: touchMoveEvent,
-				mouseup:  touchEndEvent
-			});
-
-			// Mobile touch events:
-			$canvas[0].addEventListener('touchstart', touchStartEvent, false);
-			$canvas[0].addEventListener('touchmove', touchMoveEvent, false);
-			$canvas[0].addEventListener('touchend', touchEndEvent, false);
+//			$canvas.bind({
+//				mousedown:  touchStartEvent,
+//				mousemove: touchMoveEvent,
+//				mouseup:  touchEndEvent
+//			});
+//
+//			// Mobile touch events:
+//			$canvas[0].addEventListener('touchstart', touchStartEvent, false);
+//			$canvas[0].addEventListener('touchmove', touchMoveEvent, false);
+//			$canvas[0].addEventListener('touchend', touchEndEvent, false);
 
 			// Add active CSS class to form:
-			$form.addClass(opts.cssClass.replace(/\./, ''))
+      $form.addClass(opts.cssClass.replace(/\./, ''))
 
-		
+
 			/**
 			 * Get X/Y mouse position, relative to (/inside) the canvas
 			 * 
