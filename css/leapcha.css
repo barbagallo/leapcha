@@ -6,8 +6,8 @@
 
 /* The canvas: */
 #mc-canvas {
-	width:220px;  /* For best results, set width to between 210px and 240px */
-	height:154px; /* For best results, set height to between 140px and 170px */
+	width:800px;  /* For best results, set width to between 210px and 240px */
+	height:500px; /* For best results, set height to between 140px and 170px */
 	background:#fff -9999px -9999px no-repeat;
 	background-image: url('../images/leapcha-shapes.jpg') !important;
 }

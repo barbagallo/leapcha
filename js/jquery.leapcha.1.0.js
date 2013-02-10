@@ -66,7 +66,8 @@ jQuery.fn.leapcha || (function($) {
 			// Add canvasWidth and canvasHeight values to context, for Ribbon brush:
 			ctx.canvasWidth = canvasWidth;
 			ctx.canvasHeight = canvasHeight;
-			
+
+
 			// Set canvas context font and fillStyle:
 			ctx.font = opts.canvasFont;
 			ctx.fillStyle = opts.canvasTextColor;
@@ -129,8 +130,11 @@ jQuery.fn.leapcha || (function($) {
 //					x = pos[0],
 //					y = pos[1];
 
-        var x = Math.round((pointableData.x+100)/2),
-           y = Math.round(-((pointableData.y-200)));
+//        var x = Math.round((pointableData.x+200)/2),
+//           y = Math.round(-((pointableData.y-200)));
+
+        var x = Math.round(pointableData.x+200),
+           y = -Math.round(pointableData.y-300)*2;
 				
 				// Internal drawing var	
 				_isDown = true;
@@ -163,7 +167,7 @@ jQuery.fn.leapcha || (function($) {
 				}
 				// If mouse is down and canvas not locked:
 				if ( !locked && _isDown ) {
-									
+
 					// Prevent default action:
 					//event.preventDefault();
 
@@ -172,8 +176,12 @@ jQuery.fn.leapcha || (function($) {
 //						x = pos[0],
 //						y = pos[1];
 
-          var x = Math.round((pointableData.x+100)/2),
-             y = Math.round(-((pointableData.y-200)));
+//          var x = Math.round((pointableData.x+200)/2),
+//             y = Math.round(-((pointableData.y-200)));
+
+          var x = Math.round(pointableData.x+200),
+             y = -Math.round(pointableData.y-300)*2;
+
 
           console.log(x, y);
 					
