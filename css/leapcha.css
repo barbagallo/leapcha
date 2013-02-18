@@ -9,7 +9,6 @@ body {
     padding-bottom: 40px;
 }
 
-/* Custom container */
 .container-narrow {
     margin: 0 auto;
     max-width: 700px;
@@ -18,7 +17,6 @@ body {
     margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
 .jumbotron {
     margin: 60px 0;
     text-align: center;
@@ -32,21 +30,26 @@ body {
     padding: 14px 24px;
 }
 
-/* Supporting marketing content */
-.marketing {
-    margin: 60px 0;
-}
-.marketing p + h4 {
-    margin-top: 28px;
+#lc-form {
+    clear: both;
+    overflow: auto;
 }
 
 #lc-canvas {
-    border: 4px dashed #555555;
-    border-radius: 8px;
-    width: 692px;
+    border: 3px dashed #555555;
+    border-radius: 12px;
+    width: 690px;
     height: 500px;
     position: relative;
     clear: both;
+}
+
+#lc-canvas.lc-invalid {
+    border: 5px dotted #f70017;
+}
+
+#lc-canvas.lc-valid {
+    border: 5px dashed #24ad1a;
 }
 
 #lc-challenge {

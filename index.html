@@ -31,22 +31,44 @@
 
     <hr>
 
+    <h3>Here's a simple example of a form using Leapcha:</h3>
+
     <!-- Sample Form: -->
     <form action="#" method="post" id="lc-form">
-        <canvas id="lc-canvas">
-            Your browser doesn't support the canvas element - please visit in a modern browser.
-        </canvas>
+        <fieldset style="float:left; width: 300px;">
+            <legend>Basic Info</legend>
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Name" />
 
-        <h3>Please draw the shape below:</h3>
-        <div id="lc-challenge"></div>
+            <label>E-mail</label>
+            <input type="text" name="email" placeholder="E-mail" />
+
+            <label class="checkbox">
+                <input type="checkbox"> Some checkbox
+            </label>
+        </fieldset>
+
+        <fieldset style="float:right; width: 300px;">
+            <legend>Captcha</legend>
+            <label>Please draw the shape below</label>
+
+            <div id="lc-challenge"></div>
+
+            <!--button type="submit" class="btn">Submit</button-->
+        </fieldset>
+
+        <fieldset style="padding: 20px 0; clear: both;">
+            <canvas id="lc-canvas">
+                Your browser doesn't support the canvas element - please visit in a modern browser.
+            </canvas>
+        </fieldset>
     </form>
-
-    <div id="frame-dump"></div>
 
     <hr>
 
     <div class="footer">
-        <p>&copy; Company 2013</p>
+        <p>Copyright &copy; 2013 John Paul Barbagallo.</p>
+        <p>Documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
     </div>
 </div>
 </body>
@@ -62,7 +84,7 @@
         $('#lc-form').leapcha({
             canvasId: '#lc-canvas',
             divId: '#lc-challenge',
-            shapes: ['triangle', 'x', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
+            shapes: ['triangle', 'circle', 'check', 'zigzag', 'arrow', 'pigtail', 'star']
         });
   });
 
