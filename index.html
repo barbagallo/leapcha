@@ -2,27 +2,58 @@
 <html>
 <head>
     <title>Leapcha jQuery Plugin Example</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="/css/leapcha.css"/>
 
 </head>
 <body>
 
-<!-- Sample Form: -->
-<form action="#" method="post" id="lc-form">
-    <canvas id="lc-canvas">
-        Your browser doesn't support the canvas element - please visit in a modern browser.
-    </canvas>
+<div class="container-narrow">
 
-    <h3>Please draw the shape below:</h3>
-    <div id="lc-challenge"></div>
-</form>
+    <div class="masthead">
+        <!--ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul-->
+        <h3 class="muted">Leapcha</h3>
+    </div>
 
-<div id="frame-dump"></div>
+    <hr>
 
+    <div class="jumbotron">
+        <h2>Captcha + jQuery + Leap Motion</h2>
+        <p class="lead">A simple POC in the form of a jQuery plugin, using the Leap Motion to draw captcha shapes.</p>
+        <a class="btn btn-large btn-info" href="https://github.com/barbagallo/leapcha">Go to Github Page</a>
+    </div>
+
+    <hr>
+
+    <!-- Sample Form: -->
+    <form action="#" method="post" id="lc-form">
+        <canvas id="lc-canvas">
+            Your browser doesn't support the canvas element - please visit in a modern browser.
+        </canvas>
+
+        <h3>Please draw the shape below:</h3>
+        <div id="lc-challenge"></div>
+    </form>
+
+    <div id="frame-dump"></div>
+
+    <hr>
+
+    <div class="footer">
+        <p>&copy; Company 2013</p>
+    </div>
+</div>
 </body>
 
 <script src="/js/leap.js"></script>
 <script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.leapcha.1.0.js"></script>
 
 <script>
@@ -31,7 +62,7 @@
         $('#lc-form').leapcha({
             canvasId: '#lc-canvas',
             divId: '#lc-challenge',
-            shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
+            shapes: ['triangle', 'x', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
         });
   });
 
