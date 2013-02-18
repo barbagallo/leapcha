@@ -19,63 +19,63 @@ jQuery.fn.leapcha || (function($) {
 
 		return this.each(function() {
 				
-			// Build main options before element iteration:
+			// -- Build main options before element iteration:
 			var opts = $.extend({}, $.fn.leapcha.defaults, options);
 			
-			// Ensure option ID params are valid #selectors:
+			// -- Make sure we've got IDs and not just a string without #
 			opts.actionId = '#' + opts.actionId.replace(/\#/g, '');
 			opts.canvasId = '#' + opts.canvasId.replace(/\#/g, '');
 			opts.divId = '#' + opts.divId.replace(/\#/g, '');
 			opts.submitId = ( opts.submitId ) ? '#' + opts.submitId.replace(/\#/g, '') : false;
 
-			// Set up Harmony vars:
+			// -- Set up Harmony vars:
 			var brush,
 				locked = false;
 				
-			// Set up leapcha form and jQuery elements:
+			// -- Set up leapcha form and jQuery elements:
 			var $body = $('body'),
 				$form = $(this),
 				$container = $(opts.divId),
 				$canvas = $(opts.canvasId);
 			
-			// Set up leapcha canvas vars:
+			// -- Set up leapcha canvas vars:
 			var canvasWidth = $canvas.width(),
 				canvasHeight = $canvas.height(),
 				borderLeftWidth = 1 * $canvas.css('borderLeftWidth').replace('px', ''),
 				borderTopWidth = 1 * $canvas.css('borderTopWidth').replace('px', '');
 
-      // Set up vars for controlling the Leap Motion recording:
+      // -- Set up vars for controlling the Leap Motion recording:
       var _currentFingerCount = 0,
          _currentFingerID = null;
 
-			// Canvas setup:
+			// -- Canvas setup:
 			
-			// Set the canvas DOM element's dimensions to match the display width/height (pretty important):
+			// -- Set the canvas DOM element's dimensions to match the display width/height (pretty important):
 			$canvas[0].width = canvasWidth;
 			$canvas[0].height = canvasHeight;
 			
-			// Get DOM reference to canvas context:
+			// -- Get DOM reference to canvas context:
 			var ctx = $canvas[0].getContext("2d");
 			
-			// Add canvasWidth and canvasHeight values to context, for Ribbon brush:
+			// -- Add canvasWidth and canvasHeight values to context, for Ribbon brush:
 			ctx.canvasWidth = canvasWidth;
 			ctx.canvasHeight = canvasHeight;
 
 
-			// Set canvas context font and fillStyle:
+			// -- Set canvas context font and fillStyle:
 			ctx.font = opts.canvasFont;
 			ctx.fillStyle = opts.canvasTextColor;
 			
-			// Set random shape
-			$canvas.addClass( opts.shapes[Math.floor(Math.random() * (opts.shapes.length) )] );
+			// -- Set random shape
+      $container.addClass( opts.shapes[Math.floor(Math.random() * (opts.shapes.length) )] );
 			
-			// Set up Dollar Recognizer and drawing vars:
+			// -- Set up Dollar Recognizer and drawing vars:
 			var _isDown = false,
 				_holdStill = false,
 				_points = [], 
 				_r = new DollarRecognizer();
 
-			// Create the Harmony Ribbon brush:
+			// -- Create the Harmony Ribbon brush:
 			brush = new Ribbon(ctx);
 
       Leap.loop(function(frame){
@@ -136,16 +136,13 @@ jQuery.fn.leapcha || (function($) {
 				// Prevent jumpy-touch bug on android, no effect on other platforms:
 				_holdStill = true;
 				
-				// Disable text selection:
-				$('body').addClass('lc-noselect');
-				
 				// Clear canvas:
 				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 				
 				// Start brushstroke:
 				brush.strokeStart(x, y);
 
-				// Remove 'mc-invalid' and 'lc-valid' classes from canvas:
+				// Remove 'lc-invalid' and 'lc-valid' classes from canvas:
 				$canvas.removeClass('lc-invalid lc-valid');
 				
 				// Add the first point to the points array:
@@ -195,14 +192,11 @@ jQuery.fn.leapcha || (function($) {
 				if ( !locked && _isDown ) {
 					_isDown = false;
 					
-					// Allow text-selection again:
-					$('body').removeClass('mc-noselect');
-					
 					// Dollar Recognizer result:
 					if (_points.length >= 10) {
 						var result = _r.Recognize(_points);
 						// Check result:
-						if ( $canvas.attr('class').match(result.Name) && result.Score > 0.7 ) {
+						if ( $container.attr('class').match(result.Name) && result.Score > 0.7 ) {
 							
 							// Lock the canvas:
 							locked = 1;
@@ -210,8 +204,8 @@ jQuery.fn.leapcha || (function($) {
 							// Destroy the Harmony brush (give it time to finish drawing)
 							setTimeout( brush.destroy, 500 );
 							
-							// Add 'mc-valid' class to canvas:
-							$canvas.addClass('mc-valid');
+							// Add 'lc-valid' class to canvas:
+							$canvas.addClass('lc-valid');
 							
 							// Write success message into canvas:
 							ctx.fillText(opts.successMsg, 10, 24);
@@ -223,7 +217,7 @@ jQuery.fn.leapcha || (function($) {
 						} else {
 							
 							// Add 'mc-invalid' class to canvas:
-							$canvas.addClass('mc-invalid');
+							$canvas.addClass('lc-invalid');
 							
 							// Write error message into canvas:
 							ctx.fillText(opts.errorMsg, 10, 24);
@@ -234,8 +228,8 @@ jQuery.fn.leapcha || (function($) {
 						
 					} else { // fewer than 10 points were recorded:
 						
-						// Add 'mc-invalid' class to canvas:
-						$canvas.addClass('mc-invalid');
+						// Add 'lc-invalid' class to canvas:
+						$canvas.addClass('lc-invalid');
 						
 						// Write error message into canvas:
 						ctx.fillText(opts.errorMsg, 10, 24);
@@ -300,8 +294,8 @@ jQuery.fn.leapcha || (function($) {
 	 */
 	$.fn.leapcha.defaults = {
 		actionId: '#lc-action',     // The ID of the input containing the form action
-		divId: '#lc',               // If you use an ID other than '#mc' for the placeholder, pass it in here
-		canvasId: '#leapcha-canvas',     // The ID of the leapcha canvas element
+		divId: '#lc-challenge',               // If you use an ID other than '#mc' for the placeholder, pass it in here
+		canvasId: '#lc-canvas',     // The ID of the leapcha canvas element
 		submitId: false,            // If your form has multiple submit buttons, give the ID of the main one here
 		cssClass: '.lc-active',     // This CSS class is applied to the form, when the plugin is active
 	

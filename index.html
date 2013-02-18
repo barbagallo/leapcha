@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Leapcha jQuery Plugin</title>
+    <title>Leapcha jQuery Plugin Example</title>
     <link rel="stylesheet" href="/css/leapcha.css"/>
 
 </head>
 <body>
 
-<!-- The form that MC will act on: -->
-<form action="#" method="post" id="leapcha-form">
-    <canvas id="leapcha-canvas">
+<!-- Sample Form: -->
+<form action="#" method="post" id="lc-form">
+    <canvas id="lc-canvas">
         Your browser doesn't support the canvas element - please visit in a modern browser.
     </canvas>
+
+    <h3>Please draw the shape below:</h3>
+    <div id="lc-challenge"></div>
 </form>
 
 <div id="frame-dump"></div>
@@ -25,7 +28,9 @@
 <script>
 
     $(document).ready(function(){
-        $('#leapcha-form').leapcha({
+        $('#lc-form').leapcha({
+            canvasId: '#lc-canvas',
+            divId: '#lc-challenge',
             shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
         });
   });
