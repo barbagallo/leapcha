@@ -5,7 +5,7 @@
  */
 
 /* The canvas: */
-#mc-canvas {
+#leapcha-canvas {
 	width:800px;  /* For best results, set width to between 210px and 240px */
 	height:500px; /* For best results, set height to between 140px and 170px */
 	background:#fff -9999px -9999px no-repeat;
@@ -13,22 +13,22 @@
 }
 
 /* The shapes: */
-#mc-canvas.triangle     { background-position:  10px   10px }
-#mc-canvas.x            { background-position:-200px   10px }
-#mc-canvas.rectangle    { background-position:-400px   10px }
-#mc-canvas.circle       { background-position:-600px   10px }
-#mc-canvas.check        { background-position:  10px -150px }
-#mc-canvas.caret        { background-position:-200px -150px }
-#mc-canvas.zigzag       { background-position:-400px -150px }
-#mc-canvas.arrow        { background-position:-600px -150px }
-#mc-canvas.leftbracket  { background-position:  10px -300px }
-#mc-canvas.rightbracket { background-position:-200px -300px }
-#mc-canvas.v            { background-position:-400px -300px }
-#mc-canvas.delete       { background-position:-600px -300px }
-#mc-canvas.leftbrace    { background-position:  10px -450px }
-#mc-canvas.rightbrace   { background-position:-200px -450px }
-#mc-canvas.star         { background-position:-400px -450px }
-#mc-canvas.pigtail      { background-position:-600px -450px }
+#leapcha-canvas.triangle     { background-position:  10px   10px }
+#leapcha-canvas.x            { background-position:-200px   10px }
+#leapcha-canvas.rectangle    { background-position:-400px   10px }
+#leapcha-canvas.circle       { background-position:-600px   10px }
+#leapcha-canvas.check        { background-position:  10px -150px }
+#leapcha-canvas.caret        { background-position:-200px -150px }
+#leapcha-canvas.zigzag       { background-position:-400px -150px }
+#leapcha-canvas.arrow        { background-position:-600px -150px }
+#leapcha-canvas.leftbracket  { background-position:  10px -300px }
+#leapcha-canvas.rightbracket { background-position:-200px -300px }
+#leapcha-canvas.v            { background-position:-400px -300px }
+#leapcha-canvas.delete       { background-position:-600px -300px }
+#leapcha-canvas.leftbrace    { background-position:  10px -450px }
+#leapcha-canvas.rightbrace   { background-position:-200px -450px }
+#leapcha-canvas.star         { background-position:-400px -450px }
+#leapcha-canvas.pigtail      { background-position:-600px -450px }
 
 /* Disable mouse-selection on the page (only while user is actively drawing on the canvas): */
 .mc-noselect {

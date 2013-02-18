@@ -8,8 +8,8 @@
 <body>
 
 <!-- The form that MC will act on: -->
-<form action="#" method="post" id="mc-form">
-    <canvas id="mc-canvas">
+<form action="#" method="post" id="leapcha-form">
+    <canvas id="leapcha-canvas">
         Your browser doesn't support the canvas element - please visit in a modern browser.
     </canvas>
 </form>
@@ -25,9 +25,9 @@
 <script>
 
     $(document).ready(function(){
-    $('#mc-form').leapcha({
-      shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
-    });
+        $('#leapcha-form').leapcha({
+            shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'zigzag', 'arrow', 'delete', 'pigtail', 'star']
+        });
   });
 
 </script>

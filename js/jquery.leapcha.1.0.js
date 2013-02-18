@@ -3,12 +3,12 @@
  * 
  * Gesture recognition using the Leap Motion device.
  *
- * Copyright (c) 2013 John P Barbagallo - john[at]johnbarbagallocom | http://www.johnbarbagallo.com/
+ * Copyright (c) 2013 John P Barbagallo - john[at]johnbarbagallo[dot]com | http://www.johnbarbagallo.com/
  *
  * Some parts based off of:
  * http://josscrowcroft.com/projects/motioncaptcha-jquery-plugin/
  *
- * Incoporates other open source projects, attributed below.
+ * Incorporates other open source projects, attributed below.
  */
 jQuery.fn.leapcha || (function($) {
 	
@@ -16,11 +16,7 @@ jQuery.fn.leapcha || (function($) {
 	 * Main plugin function definition
 	 */
 	$.fn.leapcha = function(options) {
-		
-		/**
-		 * Act on matched form element:
-		 * This could be set up to iterate over multiple elements, but tbh would it ever be useful?
-		 */
+
 		return this.each(function() {
 				
 			// Build main options before element iteration:
@@ -31,8 +27,6 @@ jQuery.fn.leapcha || (function($) {
 			opts.canvasId = '#' + opts.canvasId.replace(/\#/g, '');
 			opts.divId = '#' + opts.divId.replace(/\#/g, '');
 			opts.submitId = ( opts.submitId ) ? '#' + opts.submitId.replace(/\#/g, '') : false;
-
-			// Plugin setup:
 
 			// Set up Harmony vars:
 			var brush,
@@ -143,7 +137,7 @@ jQuery.fn.leapcha || (function($) {
 				_holdStill = true;
 				
 				// Disable text selection:
-				$('body').addClass('mc-noselect');
+				$('body').addClass('lc-noselect');
 				
 				// Clear canvas:
 				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -151,8 +145,8 @@ jQuery.fn.leapcha || (function($) {
 				// Start brushstroke:
 				brush.strokeStart(x, y);
 
-				// Remove 'mc-invalid' and 'mc-valid' classes from canvas:
-				$canvas.removeClass('mc-invalid mc-valid');
+				// Remove 'mc-invalid' and 'lc-valid' classes from canvas:
+				$canvas.removeClass('lc-invalid lc-valid');
 				
 				// Add the first point to the points array:
 				_points = [NewPoint(x, y)];
@@ -305,11 +299,11 @@ jQuery.fn.leapcha || (function($) {
 	 * Exposed default plugin settings, which can be overridden in plugin call.
 	 */
 	$.fn.leapcha.defaults = {
-		actionId: '#mc-action',     // The ID of the input containing the form action
-		divId: '#mc',               // If you use an ID other than '#mc' for the placeholder, pass it in here
-		canvasId: '#mc-canvas',     // The ID of the leapcha canvas element
+		actionId: '#lc-action',     // The ID of the input containing the form action
+		divId: '#lc',               // If you use an ID other than '#mc' for the placeholder, pass it in here
+		canvasId: '#leapcha-canvas',     // The ID of the leapcha canvas element
 		submitId: false,            // If your form has multiple submit buttons, give the ID of the main one here
-		cssClass: '.mc-active',     // This CSS class is applied to the form, when the plugin is active
+		cssClass: '.lc-active',     // This CSS class is applied to the form, when the plugin is active
 	
 		// An array of shape names that you want leapcha to use:
 		shapes: ['triangle', 'x', 'rectangle', 'circle', 'check', 'caret', 'zigzag', 'arrow', 'leftbracket', 'rightbracket', 'v', 'delete', 'star', 'pigtail'],
