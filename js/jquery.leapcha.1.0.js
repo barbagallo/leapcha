@@ -323,12 +323,12 @@ jQuery.fn.leapcha || (function($) {
 		onSuccess: function($form, $canvas, ctx) {
 			var opts = this,
 				$submit = opts.submitId ? $form.find(opts.submitId) : $form.find('input[type=submit]:disabled');
-						
+
 			// Set the form action:
 			$form.attr( 'action', $(opts.actionId).val() );
 			
 			// Enable the submit button:
-			$submit.prop('disabled', false).removeClass('disabled');
+			$submit.prop('disabled', false);
 			
 			return;
 		},
