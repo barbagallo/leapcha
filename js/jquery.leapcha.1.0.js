@@ -174,7 +174,7 @@ jQuery.fn.leapcha || (function($) {
              y = -Math.round(pointableData.y-300)*2;
 
 
-          console.log(x, y);
+          //console.log(x, y);
 					
 					// Append point to points array:
 					_points[_points.length] = NewPoint(x, y);
@@ -328,7 +328,7 @@ jQuery.fn.leapcha || (function($) {
 			$form.attr( 'action', $(opts.actionId).val() );
 			
 			// Enable the submit button:
-			$submit.prop('disabled', false);
+			$submit.prop('disabled', false).removeClass('disabled');
 			
 			return;
 		},
