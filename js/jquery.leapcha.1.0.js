@@ -44,11 +44,9 @@ jQuery.fn.leapcha || (function($) {
 				borderLeftWidth = 1 * $canvas.css('borderLeftWidth').replace('px', ''),
 				borderTopWidth = 1 * $canvas.css('borderTopWidth').replace('px', '');
 
-      // -- Set up vars for controlling the Leap Motion recording:
-      var _currentFingerCount = 0,
-         _currentFingerID = null;
-
-			// -- Canvas setup:
+            // -- Set up vars for controlling the Leap Motion recording:
+            var _currentFingerCount = 0,
+                _currentFingerID = null;
 			
 			// -- Set the canvas DOM element's dimensions to match the display width/height (pretty important):
 			$canvas[0].width = canvasWidth;
@@ -61,144 +59,119 @@ jQuery.fn.leapcha || (function($) {
 			ctx.canvasWidth = canvasWidth;
 			ctx.canvasHeight = canvasHeight;
 
-
 			// -- Set canvas context font and fillStyle:
 			ctx.font = opts.canvasFont;
 			ctx.fillStyle = opts.canvasTextColor;
 			
 			// -- Set random shape
-      $container.addClass( opts.shapes[Math.floor(Math.random() * (opts.shapes.length) )] );
+            $container.addClass( opts.shapes[Math.floor(Math.random() * (opts.shapes.length) )] );
 			
 			// -- Set up Dollar Recognizer and drawing vars:
 			var _isDown = false,
-				_holdStill = false,
 				_points = [], 
 				_r = new DollarRecognizer();
 
 			// -- Create the Harmony Ribbon brush:
 			brush = new Ribbon(ctx);
 
-      Leap.loop(function(frame){
-        //console.log(frame.pointables);
-        //$("#frame-dump").html(frame);
+            Leap.loop(function(frame){
+                if(frame.pointables.length > 0){ // -- starting a drawing
+                    var pointableData = {};
 
-        if(frame.pointables.length > 0){ // -- starting a drawing
-          var pointableData = {};
+                    _currentFingerID = frame.pointables[0].id;
 
-          _currentFingerID = frame.pointables[0].id;
+                    // -- set up X + Y coordinates in an object to pass:
+                    pointableData.x = frame.pointables[0].tipPosition[0];
+                    pointableData.y = frame.pointables[0].tipPosition[1];
 
-          //console.log('count: ' + _currentFingerCount + ' currentID: ' + _currentFingerID);
-          //console.log(frame.pointables[0])
-          //console.log(frame.pointables);
+                    if(_currentFingerCount == 0){
+                    leapStartEvent(pointableData);
 
-          // -- set up X + Y coordinates in an object to pass:
-          pointableData.x = frame.pointables[0].tipPosition[0];
-          pointableData.y = frame.pointables[0].tipPosition[1];
+                    _currentFingerCount = 1;
+                    }
 
-          if(_currentFingerCount == 0){
-            touchStartEvent(pointableData);
+                    leapMoveEvent(pointableData);
 
-            _currentFingerCount = 1;
-          }
+                } else if (frame.pointables.length == 0) { // -- reset drawing
+                  leapEndEvent(null);
+                  _currentFingerCount = 0;
+                  _currentFingerID = null;
+                }
+            });
 
-          touchMoveEvent(pointableData);
+            /**
+            * leapStartEvent - Starts the first point of drawing on the canvas
+            * @param pointableData
+            * @return {Boolean}
+            */
+            var leapStartEvent = function(pointableData) {
+                if ( locked )
+                    return false;
 
-        } else if (frame.pointables.length == 0) { // -- reset drawing
-          touchEndEvent(null);
-          _currentFingerCount = 0;
-          _currentFingerID = null;
-        }
-      });
+                // -- TODO: Figure out better math to fix these points.
+                var x = Math.round(pointableData.x+200),
+                   y = -Math.round(pointableData.y-300)*2;
 
-			// Mousedown event
-			// Start Harmony brushstroke and begin recording DR points:
-			var touchStartEvent = function(pointableData) {
-				if ( locked )
-					return false;
-				
-				// Prevent default action:
-				//event.preventDefault();
-				
-				// Get mouse position inside the canvas:
-//				var pos = getPos(event),
-//					x = pos[0],
-//					y = pos[1];
+                // Internal drawing var
+                _isDown = true;
 
-//        var x = Math.round((pointableData.x+200)/2),
-//           y = Math.round(-((pointableData.y-200)));
+                // Clear canvas:
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-        var x = Math.round(pointableData.x+200),
-           y = -Math.round(pointableData.y-300)*2;
-				
-				// Internal drawing var	
-				_isDown = true;
-				
-				// Prevent jumpy-touch bug on android, no effect on other platforms:
-				_holdStill = true;
-				
-				// Clear canvas:
-				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-				
-				// Start brushstroke:
-				brush.strokeStart(x, y);
+                // Start brushstroke:
+                brush.strokeStart(x, y);
 
-				// Remove 'lc-invalid' and 'lc-valid' classes from canvas:
-				$canvas.removeClass('lc-invalid lc-valid');
-				
-				// Add the first point to the points array:
-				_points = [NewPoint(x, y)];
+                // Remove 'lc-invalid' and 'lc-valid' classes from canvas:
+                $canvas.removeClass('lc-invalid lc-valid');
 
-				return false;
-			}; // mousedown/touchstart event
+                // Add the first point to the points array:
+                _points = [NewPoint(x, y)];
 
-			// Mousemove event:
-			var touchMoveEvent = function(pointableData) {
-				if ( _holdStill ) {
-					return _holdStill = 0;
-				}
-				// If mouse is down and canvas not locked:
+                return false;
+            };
+
+            /**
+             * leapMoveEvent - called for each subsequent points that are drawn using the Leap motion.
+             * @param pointableData
+             * @return {*}
+             */
+			var leapMoveEvent = function(pointableData) {
+				// If we're drawing and and canvas not locked:
 				if ( !locked && _isDown ) {
 
-					// Prevent default action:
-					//event.preventDefault();
+                // -- TODO: Figure out better math to fix these points.
+                var x = Math.round(pointableData.x+200),
+                    y = -Math.round(pointableData.y-300)*2;
 
-					// Get mouse position inside the canvas:
-//					var pos = getPos(event),
-//						x = pos[0],
-//						y = pos[1];
-
-//          var x = Math.round((pointableData.x+200)/2),
-//             y = Math.round(-((pointableData.y-200)));
-
-          var x = Math.round(pointableData.x+200),
-             y = -Math.round(pointableData.y-300)*2;
-
-
-          //console.log(x, y);
-					
 					// Append point to points array:
 					_points[_points.length] = NewPoint(x, y);
 					
 					// Do brushstroke:
 					brush.stroke(x, y);
 				}
+
 				return false;
-			}; // mousemove/touchmove event
-			
-			
-			// Mouseup event:
-			var touchEndEvent = function(event) {
-				// If mouse is down and canvas not locked:
+			};
+
+
+            /**
+             * leapEndEvent - called when the user is "done" drawing with the Leap motion (when their pointer leaves the view).
+             * @param event
+             * @return {Boolean}
+             */
+			var leapEndEvent = function(event) {
+                // If we're drawing and and canvas not locked:
 				if ( !locked && _isDown ) {
 					_isDown = false;
 					
 					// Dollar Recognizer result:
 					if (_points.length >= 10) {
 						var result = _r.Recognize(_points);
+
 						// Check result:
 						if ( $container.attr('class').match(result.Name) && result.Score > 0.7 ) {
 							
-							// Lock the canvas:
+							// Lock up the canvas:
 							locked = 1;
 							
 							// Destroy the Harmony brush (give it time to finish drawing)
@@ -216,7 +189,7 @@ jQuery.fn.leapcha || (function($) {
 							
 						} else {
 							
-							// Add 'mc-invalid' class to canvas:
+							// Add 'lc-invalid' class to canvas:
 							$canvas.addClass('lc-invalid');
 							
 							// Write error message into canvas:
@@ -239,31 +212,14 @@ jQuery.fn.leapcha || (function($) {
 					}
 				}
 				return false;
-			}; // mouseup/touchend event
-
-			// Bind events to canvas:
-//			$canvas.bind({
-//				mousedown:  touchStartEvent,
-//				mousemove: touchMoveEvent,
-//				mouseup:  touchEndEvent
-//			});
-//
-//			// Mobile touch events:
-//			$canvas[0].addEventListener('touchstart', touchStartEvent, false);
-//			$canvas[0].addEventListener('touchmove', touchMoveEvent, false);
-//			$canvas[0].addEventListener('touchend', touchEndEvent, false);
+			};
 
 			// Add active CSS class to form:
-      $form.addClass(opts.cssClass.replace(/\./, ''))
+            $form.addClass(opts.cssClass.replace(/\./, ''))
 
 
-			/**
-			 * Get X/Y mouse position, relative to (/inside) the canvas
-			 * 
-			 * Handles cross-browser quirks rather nicely, I feel.
-			 * 
-			 * @todo For 1.0, if no way to obtain coordinates, don't activate leapcha.
-			 */
+
+            // -- TODO: possibly reuse this function below to calculate points on canvas that are being received from the Leap Motion.
 			function getPos(event) {
 				var x, y;
 				
@@ -284,9 +240,9 @@ jQuery.fn.leapcha || (function($) {
 				return [x,y];
 			}
 
-		}); // this.each
+		});
 
-	} // end main plugin function
+	}
 	
 	
 	/**
@@ -294,9 +250,9 @@ jQuery.fn.leapcha || (function($) {
 	 */
 	$.fn.leapcha.defaults = {
 		actionId: '#lc-action',     // The ID of the input containing the form action
-		divId: '#lc-challenge',               // If you use an ID other than '#mc' for the placeholder, pass it in here
-		canvasId: '#lc-canvas',     // The ID of the leapcha canvas element
-		submitId: false,            // If your form has multiple submit buttons, give the ID of the main one here
+		divId: '#lc-challenge',     // The ID of the container where you'd like the challenge image to show up
+		canvasId: '#lc-canvas',     // The ID of the Leapcha canvas element
+		submitId: false,            // If your form has multiple submit buttons, give the ID of the one you'd like "activated" upon correct leapcha
 		cssClass: '.lc-active',     // This CSS class is applied to the form, when the plugin is active
 	
 		// An array of shape names that you want leapcha to use:
@@ -341,10 +297,10 @@ jQuery.fn.leapcha || (function($) {
 			return;
 		}
 	};
-	
 
-
-
+    /**
+     *******************************************************************
+     */
 
 	/*!
 	 * Harmony | mrdoob | Ribbon Brush class
