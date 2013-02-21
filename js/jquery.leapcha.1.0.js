@@ -130,11 +130,11 @@ jQuery.fn.leapcha || (function($) {
                 return false;
             };
 
-            /**
-             * leapMoveEvent - called for each subsequent points that are drawn using the Leap motion.
-             * @param pointableData
-             * @return {*}
-             */
+      /**
+       * leapMoveEvent - called for each subsequent points that are drawn using the Leap motion.
+       * @param pointableData
+       * @return {*}
+       */
 			var leapMoveEvent = function(pointableData) {
 				// If we're drawing and and canvas not locked:
 				if ( !locked && _isDown ) {
@@ -154,11 +154,11 @@ jQuery.fn.leapcha || (function($) {
 			};
 
 
-            /**
-             * leapEndEvent - called when the user is "done" drawing with the Leap motion (when their pointer leaves the view).
-             * @param event
-             * @return {Boolean}
-             */
+      /**
+       * leapEndEvent - called when the user is "done" drawing with the Leap motion (when their pointer leaves the view).
+       * @param event
+       * @return {Boolean}
+       */
 			var leapEndEvent = function(event) {
                 // If we're drawing and and canvas not locked:
 				if ( !locked && _isDown ) {
@@ -215,11 +215,11 @@ jQuery.fn.leapcha || (function($) {
 			};
 
 			// Add active CSS class to form:
-            $form.addClass(opts.cssClass.replace(/\./, ''))
+      $form.addClass(opts.cssClass.replace(/\./, ''))
 
 
 
-            // -- TODO: possibly reuse this function below to calculate points on canvas that are being received from the Leap Motion.
+      // -- TODO: possibly reuse this function below to calculate points on canvas that are being received from the Leap Motion.
 			function getPos(event) {
 				var x, y;
 				
@@ -264,12 +264,12 @@ jQuery.fn.leapcha || (function($) {
 		
 		// These messages are displayed inside the canvas after a user finishes drawing:
 		errorMsg: 'Please try again.',
-		successMsg: 'Captcha passed!',
+		successMsg: 'Leapcha passed!',
 		
 		// This message is displayed if the user's browser doesn't support canvas:
 		noCanvasMsg: "Your browser doesn't support <canvas> - try Chrome, FF4, Safari or IE9.",
 		
-		// This could be any HTML string (eg. '<label>Draw this shit yo:</label>'):
+		// This could be any HTML string (eg. '<label>Draw the shape:</label>'):
 		label: '<p>Please draw the shape in the box to submit the form:</p>',
 		
 		// Callback function to execute when a user successfully draws the shape

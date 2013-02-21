@@ -4,8 +4,8 @@
     <title>Leapcha jQuery Plugin Example</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="/css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="/css/leapcha.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen" />
+    <link rel="stylesheet" href="css/leapcha.css"/>
 
 </head>
 <body>
@@ -18,7 +18,7 @@
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
         </ul-->
-        <h3 class="muted">Leapcha</h3>
+        <h2 class="muted">Leapcha</h2>
     </div>
 
     <hr>
@@ -34,7 +34,7 @@
     <h3>Here's a simple example of a form using Leapcha:</h3>
 
     <!-- Sample Form: -->
-    <form action="#" method="post" id="lc-form">
+    <form action="#" method="post" id="contact-form">
         <fieldset style="float:left; width: 300px;">
             <legend>Basic Info</legend>
             <label>Name</label>
@@ -64,7 +64,7 @@
         </fieldset>
 
         <fieldset>
-            <input type="submit" class="btn btn-large btn-primary disabled" disabled="disabled"/>
+            <input type="submit" id="send-info" value="submitform.php" class="btn btn-large btn-primary disabled" disabled="disabled" />
         </fieldset>
     </form>
 
@@ -72,20 +72,21 @@
 
     <div class="footer">
         <p>Copyright &copy; 2013 John Paul Barbagallo.</p>
-        <p>Documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+        <p><a href="https://twitter.com/jbarbagallo" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @jbarbagallo</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
     </div>
 </div>
 </body>
 
-<script src="/js/leap.js"></script>
-<script src="/js/jquery-1.9.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.leapcha.1.0.js"></script>
+<script src="js/leap.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.leapcha.1.0.js"></script>
 
 <script>
 
     $(document).ready(function(){
-        $('#lc-form').leapcha({
+        $('#contact-form').leapcha({
             canvasId: '#lc-canvas',
             divId: '#lc-challenge',
             shapes: ['triangle', 'circle', 'check', 'zigzag', 'arrow', 'pigtail', 'star'],
