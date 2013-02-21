@@ -1,5 +1,5 @@
-#Leapcha
-##A proof of concept captcha-like jQuery plugin for use with the Leap Motion device/library.
+#Leapcha = Captcha + jQuery + Leap Motion
+A proof of concept captcha-like jQuery plugin for use with the Leap Motion device/library.
 
 ## How It Works
 * Manually disable your form, by emptying the form's `action` attribute, and placing its value in a hidden `<input>` with a specific ID. You need to also add `disabled="disabled"` on the submit button.
@@ -104,7 +104,7 @@ _NOTE: Below are steps that will get the index.html example working properly. Yo
 ## Technology
 
 ####Leap Motion
-Leap Motion is unreleased to the consumer market (as of writing this README). It is slated to be sold in Bestbuy beginning Spring 2013. To read up more on how Leap Motion works and what it is, check out their [website]("http://www.leapmotion.com/").
+Leap Motion is unreleased to the consumer market (as of writing this README). It is slated to be sold in Bestbuy beginning Spring 2013. To read up more on how Leap Motion works and what it is, check out their [website](http://www.leapmotion.com/).
 
 This project is a simple POC/example of how to use Leap Motion in the browser. You need the device in order to use this plugin.
 
@@ -119,8 +119,8 @@ This project is a simple POC/example of how to use Leap Motion in the browser. Y
 * Initial build.
 
 ## Credits
-*Some parts of this project are based off of Joss Crowcroft's [work]("http://josscrowcroft.com/projects/motioncaptcha-jquery-plugin/").*
+*Some parts of this project are based off of Joss Crowcroft's [work](http://josscrowcroft.com/projects/motioncaptcha-jquery-plugin/).*
 
-* [Harmony Ribbon Brush]("http://mrdoob.com/projects/harmony/")
-* [$1 Unistroke Recognizer (Jacob O. Wobbrock, Ph.D., Andrew D. Wilson, Ph.D., & Yang Li, Ph.D.)]("http://depts.washington.edu/aimgroup/proj/dollar/")
+* [Harmony Ribbon Brush](http://mrdoob.com/projects/harmony/)
+* [$1 Unistroke Recognizer (Jacob O. Wobbrock, Ph.D., Andrew D. Wilson, Ph.D., & Yang Li, Ph.D.)](http://depts.washington.edu/aimgroup/proj/dollar/)
 * [Bootstrap](http://twitter.github.com/bootstrap/) for the Example/homepage
